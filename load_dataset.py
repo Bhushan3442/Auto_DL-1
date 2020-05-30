@@ -1,10 +1,10 @@
 import streamlit as st
-
+import numpy as np
 def select_dataset ():
 
     dataset = st.selectbox(
     "Select the dataset that you wish to work on ",
-        ('MNIST', 'CIFAR-10', 'CIFAR-100', 'IMDB', 'Reuters Newswire','Fashion MNIST','Boston Housing Price')
+        ('MNIST', 'CIFAR-10', 'CIFAR-100', 'IMDB','Fashion MNIST','Boston Housing Price')
     )
 
     if dataset == 'MNIST':
@@ -51,29 +51,10 @@ def select_dataset ():
 
         (x_train, y_train), (x_test, y_test) = imdb.load_data()
 
-        data = np.concatenate((x_train, x_test), axis=0)
-        target = np.concatenate((y_train, y_test), axis=0)
-
-        x_train,y_train = data[10000:],target[10000:]
-        x_test,y_test = data[:10000],target[:10000]
-
         classes = ["Negative", "Positive"]
 
         top = "NLP"
 
-    elif dataset == 'Reuters Newswire':
-
-        from keras.datasets import reuters
-
-        (x_train, y_train), (x_test, y_test) = reuters.load_data(test_split=0.3)
-
-        classes = ['cocoa','grain','veg-oil','earn','acq','wheat','copper','housing','money-supply',
-        'coffee','sugar','trade','reserves','ship','cotton','carcass','crude','nat-gas',
-        'cpi','money-fx','interest','gnp','meal-feed','alum','oilseed','gold','tin',
-        'strategic-metal','livestock','retail','ipi','iron-steel','rubber','heat','jobs',
-        'lei','bop','zinc','orange','pet-chem','dlr','gas','silver','wpi','hog','lead']
-
-        top = "NLP"
 
     elif dataset == 'Boston Housing Price':
 
@@ -81,6 +62,6 @@ def select_dataset ():
 
         (x_train, y_train), (x_test, y_test) = boston_housing.load_data(test_split=0.2, seed=113)
 
-        top = "Reg"
+        top = "REG"
 
     return x_train,y_train,x_test,y_test,top,dataset,classes
